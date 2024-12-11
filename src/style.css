@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+  .button {
+    @apply flex items-center justify-center bg-[#783EAD] w-[110px] md:w-[120px] h-10 md:h-[44px] hover:bg-[#380048] text-[#ffffff] font-semibold rounded-[10px] py-3 px-4 gap-2 cursor-pointer;
+  }
+}
+
+@layer utilities {
+  #container {
+    @apply my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
+}
