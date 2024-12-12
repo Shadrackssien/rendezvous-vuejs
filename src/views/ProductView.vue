@@ -1,11 +1,31 @@
 <script>
 import NavigationBar from "../components/NavigationBar.vue";
 import Footer from "../components/Footer.vue";
+import axios from "axios";
 
 export default {
   components: {
     NavigationBar,
     Footer,
+  },
+  data() {
+    return {
+      product: null,
+      isLoading: true,
+    };
+  },
+  async mounted() {
+    const productId = this.$route.params.id;
+    try {
+      const res = await axios.get(
+        `https://fakestoreapi.com/products/${productId}`
+      );
+      this.product = res.data; // Store the product data
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    } finally {
+      this.isLoading = false;
+    }
   },
 };
 </script>
@@ -14,13 +34,14 @@ export default {
   <div class="product">
     <NavigationBar />
 
-    <div>
-      <!-- image -->
+    <div v-if="isLoading" class="text-center mt-8">Loading product...</div>
+    <!-- image -->
+    <div v-else>
       <div class="mx-4 md:mx-8 lg:mx-16 mt-8 mb-[60px] rounded-lg">
         <img
           class="w-[100%] h-[480px] object-cover object-center border border-gray-300 rounded-[20px]"
-          src="/src/assets/banner.png"
-          alt="I said what I said Live Show"
+          :src="product.image"
+          :alt="product.title"
         />
       </div>
 
@@ -33,7 +54,7 @@ export default {
             <h1
               class="text-[20px] md:text-[24px] leading-[28.13px] mb-8 md:mb-0 font-bold w-96 md:w-[650px] h-[30px]"
             >
-              I said what I said Live Show
+              {{ product.title }}
             </h1>
 
             <!-- details -->
@@ -44,7 +65,7 @@ export default {
                   src="/src/assets/vector1.png"
                   alt="vector 1"
                 />
-                <p class="mt-8">Sunday, october 3rd, 2023</p>
+                <p class="mt-8">{{ "Price: $ " + product.price }}</p>
               </div>
               <div class="flex flex-row gap-2">
                 <img
@@ -53,8 +74,7 @@ export default {
                   alt="vector 1"
                 />
                 <p>
-                  Race Course, 8/9 Marina, Onikan, Lagos Lagos, 4aa Force Rd,
-                  Lagos Island 102273, Lagos
+                  {{ "Category: " + product.category }}
                 </p>
               </div>
               <div class="flex flex-row gap-2">
@@ -63,7 +83,15 @@ export default {
                   src="/src/assets/vector3.png"
                   alt="vector 1"
                 />
-                <p>FK, Jollz</p>
+                <p>
+                  {{
+                    "Rating: " +
+                    product.rating.rate +
+                    " " +
+                    product.rating.count +
+                    " reviews"
+                  }}
+                </p>
               </div>
             </div>
 
@@ -73,10 +101,7 @@ export default {
                 Event description
               </p>
               <p class="w-[95%] lg:w-[875px] text-[16px] leading-[18.75px]">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic
-                nesciunt quia sapiente esse excepturi tenetur tempore debitis
-                maxime perspiciatis, magnam beatae numquam quo quis eum aliquid
-                nulla provident soluta consequatur!
+                {{ product.description }}
               </p>
             </div>
 

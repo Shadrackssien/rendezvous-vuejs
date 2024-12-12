@@ -1,40 +1,38 @@
 <script>
 import Card from "./Card.vue";
+import axios from "axios";
 
 export default {
   components: {
     Card,
   },
-
   data() {
     return {
-      events: [
-        {
-          imageSrc: "/src/assets/1.png",
-          title: "ISWIS Live Show",
-          date: "Sun, Oct 3rd . 6pm",
-          description:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis nesciunt enim iure, alias reprehenderit cupiditate, explicabo suscipit deleniti laborum laudantium hjugfdsrg.",
-          link: "product",
-        },
-        {
-          imageSrc: "/src/assets/2.png",
-          title: "ISWIS Live Show",
-          date: "Sun, Oct 3rd . 6pm",
-          description:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis nesciunt enim iure, alias reprehenderit cupiditate, explicabo suscipit deleniti laborum laudantium hjugfdsrg.",
-          link: "product",
-        },
-        {
-          imageSrc: "/src/assets/3.png",
-          title: "ISWIS Live Show",
-          date: "Sun, Oct 3rd . 6pm",
-          description:
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis nesciunt enim iure, alias reprehenderit cupiditate, explicabo suscipit deleniti laborum laudantium hjugfdsrg.",
-          link: "product",
-        },
-      ],
+      products: [],
+      isLoading: false,
     };
+  },
+  mounted() {
+    this.fetchProducts();
+  },
+  methods: {
+    async fetchProducts() {
+      this.isLoading = true;
+      try {
+        const res = await axios.get("https://fakestoreapi.com/products");
+        this.products = res.data.map((product) => ({
+          imageSrc: product.image,
+          title: product.title,
+          price: product.price,
+          description: product.description,
+          link: "product/" + product.id, // Replace with the actual product ID", // Assuming the link would be a product page
+        }));
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
   },
 };
 </script>
@@ -66,14 +64,18 @@ export default {
       </div>
 
       <div id="container">
+        <!-- Show loading state -->
+        <div v-if="isLoading">Loading products...</div>
+        <!-- Render products -->
         <Card
-          v-for="(event, index) in events"
+          v-else
+          v-for="(product, index) in products"
           :key="index"
-          :imageSrc="event.imageSrc"
-          :title="event.title"
-          :date="event.date"
-          :description="event.description"
-          :link="event.link"
+          :imageSrc="product.imageSrc"
+          :title="product.title"
+          :price="'$ ' + product.price"
+          :description="product.description"
+          :link="product.link"
         />
       </div>
     </div>
