@@ -3,7 +3,7 @@
     class="overflow-hidden mx-auto border border-1-[#E0E0E0] rounded-lg bg-white flex flex-col gap-4 w-96 md:w-full h-[488px] shadow-lg text-black no-underline"
   >
     <img
-      class="w-auto h-1/2 object-cover object-center mx-auto rounded-t-lg transition-all duration-300 ease-in-out hover:scale-[1.02]"
+      class="w-auto h-1/2 object-cover object-center rounded-t-lg transition-all duration-300 ease-in-out hover:scale-[1.02]"
       :src="imageSrc"
       :alt="title"
     />
@@ -21,11 +21,11 @@
       {{ description }}
     </div>
     <div class="mx-4 flex flex-row items-center gap-1 mb-3">
-      <a
+      <router-link
         class="text-primary text-[14px] leading-[16.41px] font-semibold"
-        :href="link"
+        :to="link"
         >View details
-      </a>
+      </router-link>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -43,7 +43,12 @@
 </template>
 
 <script>
+import { RouterLink } from "vue-router";
+
 export default {
+  components: {
+    RouterLink,
+  },
   props: {
     imageSrc: {
       type: String,

@@ -15,7 +15,7 @@ export default {
           date: "Sun, Oct 3rd . 6pm",
           description:
             "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis nesciunt enim iure, alias reprehenderit cupiditate, explicabo suscipit deleniti laborum laudantium hjugfdsrg.",
-          link: "#",
+          link: "product",
         },
         {
           imageSrc: "/src/assets/2.png",
@@ -23,7 +23,7 @@ export default {
           date: "Sun, Oct 3rd . 6pm",
           description:
             "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis nesciunt enim iure, alias reprehenderit cupiditate, explicabo suscipit deleniti laborum laudantium hjugfdsrg.",
-          link: "#",
+          link: "product",
         },
         {
           imageSrc: "/src/assets/3.png",
@@ -31,7 +31,7 @@ export default {
           date: "Sun, Oct 3rd . 6pm",
           description:
             "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis nesciunt enim iure, alias reprehenderit cupiditate, explicabo suscipit deleniti laborum laudantium hjugfdsrg.",
-          link: "#",
+          link: "product",
         },
       ],
     };
