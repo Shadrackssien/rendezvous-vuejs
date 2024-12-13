@@ -8,10 +8,11 @@ export default {
   },
   data() {
     return {
-      products: [],
+      products: null,
       isLoading: false,
     };
   },
+
   mounted() {
     this.fetchProducts();
   },
@@ -25,7 +26,7 @@ export default {
           title: product.title,
           price: product.price,
           description: product.description,
-          link: "product/" + product.id, // Replace with the actual product ID", // Assuming the link would be a product page
+          link: "product/" + product.id,
         }));
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -64,8 +65,68 @@ export default {
       </div>
 
       <div id="container">
-        <!-- Show loading state -->
-        <div v-if="isLoading">Loading products...</div>
+        <!-- loading state -->
+        <div class="flex items-center justify-center" v-if="isLoading">
+          <div class="font-semibold mr-8 text-primary">
+            Products Loading, please wait...
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <circle
+              fill="#432361"
+              stroke="#432361"
+              stroke-width="3"
+              r="15"
+              cx="40"
+              cy="65"
+            >
+              <animate
+                attributeName="cy"
+                calcMode="spline"
+                dur="2"
+                values="65;135;65;"
+                keySplines=".5 0 .5 1;.5 0 .5 1"
+                repeatCount="indefinite"
+                begin="-.4"
+              ></animate>
+            </circle>
+            <circle
+              fill="#432361"
+              stroke="#432361"
+              stroke-width="3"
+              r="15"
+              cx="100"
+              cy="65"
+            >
+              <animate
+                attributeName="cy"
+                calcMode="spline"
+                dur="2"
+                values="65;135;65;"
+                keySplines=".5 0 .5 1;.5 0 .5 1"
+                repeatCount="indefinite"
+                begin="-.2"
+              ></animate>
+            </circle>
+            <circle
+              fill="#432361"
+              stroke="#432361"
+              stroke-width="3"
+              r="15"
+              cx="160"
+              cy="65"
+            >
+              <animate
+                attributeName="cy"
+                calcMode="spline"
+                dur="2"
+                values="65;135;65;"
+                keySplines=".5 0 .5 1;.5 0 .5 1"
+                repeatCount="indefinite"
+                begin="0"
+              ></animate>
+            </circle>
+          </svg>
+        </div>
         <!-- Render products -->
         <Card
           v-else

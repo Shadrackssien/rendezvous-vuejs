@@ -20,7 +20,8 @@ export default {
       const res = await axios.get(
         `https://fakestoreapi.com/products/${productId}`
       );
-      this.product = res.data; // Store the product data
+      this.product = res.data;
+      console.log(this.product);
     } catch (error) {
       console.error("Error fetching product:", error);
     } finally {

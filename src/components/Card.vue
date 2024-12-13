@@ -13,7 +13,7 @@
       {{ title }}
     </div>
     <div class="mx-4 text-[14px] font-medium leading-[16.41px] mb-2">
-      {{ pricey }}
+      {{ price }}
     </div>
     <div
       class="mx-4 mb-3 text-[14px] font-normal leading-[16.41px] text-ellipsis line-clamp-4 overflow-hidden"
@@ -58,7 +58,7 @@ export default {
       type: String,
       required: true,
     },
-    pricey: {
+    price: {
       type: String,
       required: true,
     },
