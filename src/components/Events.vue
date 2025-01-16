@@ -1,40 +1,41 @@
 <script>
 import Card from "./Card.vue";
-import axios from "axios";
 
 export default {
   components: {
     Card,
   },
-  data() {
-    return {
-      products: null,
-      isLoading: false,
-    };
-  },
 
-  mounted() {
-    this.fetchProducts();
-  },
-  methods: {
-    async fetchProducts() {
-      this.isLoading = true;
-      try {
-        const res = await axios.get("https://fakestoreapi.com/products");
-        this.products = res.data.map((product) => ({
-          imageSrc: product.image,
-          title: product.title,
-          price: product.price,
-          description: product.description,
-          link: "product/" + product.id,
-        }));
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        this.isLoading = false;
-      }
+  computed: {
+    products() {
+      return this.$store.getters["getProducts"];
+    },
+    isLoading() {
+      return this.$store.state.isLoading;
     },
   },
+  mounted() {
+    this.$store.dispatch("products/fetchProducts");
+  },
+  // methods: {
+  //   async fetchProducts() {
+  //     this.isLoading = true;
+  //     try {
+  //       const res = await axios.get("https://fakestoreapi.com/products");
+  //       this.products = res.data.map((product) => ({
+  //         imageSrc: product.image,
+  //         title: product.title,
+  //         price: product.price,
+  //         description: product.description,
+  //         link: "product/" + product.id,
+  //       }));
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //     } finally {
+  //       this.isLoading = false;
+  //     }
+  //   },
+  // },
 };
 </script>
 
@@ -66,7 +67,10 @@ export default {
 
       <div id="container">
         <!-- loading state -->
-        <div class="flex items-center justify-center" v-if="isLoading">
+        <div
+          class="flex items-center justify-center"
+          v-if="$store.state.isLoading"
+        >
           <div class="font-semibold mr-8 text-primary">
             Products Loading, please wait...
           </div>
@@ -130,7 +134,7 @@ export default {
         <!-- Render products -->
         <Card
           v-else
-          v-for="(product, index) in products"
+          v-for="(product, index) in $store.state.products"
           :key="index"
           :imageSrc="product.imageSrc"
           :title="product.title"

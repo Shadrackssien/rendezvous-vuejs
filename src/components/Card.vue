@@ -10,6 +10,7 @@
     <div
       class="mx-4 text-[16px] font-bold leading-[18.75px] mt-1 text-ellipsis line-clamp-2"
     >
+      Anything
       {{ title }}
     </div>
     <div class="mx-4 text-[14px] font-medium leading-[16.41px] mb-2">
